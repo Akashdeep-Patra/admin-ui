@@ -3,6 +3,10 @@
         "./src/**/*"
     ],
     "compilerOptions": {
+        "typeRoots": [
+            "../node_modules/@types",
+            "./"
+        ],
         "strict": true,
         "esModuleInterop": true,
         "lib": [
