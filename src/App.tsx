@@ -1,6 +1,7 @@
 import "./styles.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
+// @ts-ignore
 import SearchField from "react-search-field";
 import ReactPaginate from "react-paginate";
 import { ImCheckboxUnchecked } from "react-icons/im";

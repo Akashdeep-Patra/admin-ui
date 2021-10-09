@@ -3,6 +3,7 @@
         "./src/**/*",
     ],
     "compilerOptions": {
+        "strict": true,
         "esModuleInterop": true,
         "lib": [
             "dom",
