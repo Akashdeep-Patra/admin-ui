@@ -14,6 +14,9 @@ export interface User {
   role: string;
   isChecked?: boolean;
 }
+const getLastPageNumber = (n: number) => {
+  return n % 10 === 0 ? n / 10 - 1 : Math.floor(n / 10);
+};
 export default function App() {
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [currentUsers, setCurrentUsers] = useState<User[]>([]);
@@ -154,18 +157,40 @@ export default function App() {
         <button onClick={batchDelete} className="batch-delete">
           Delete Selected
         </button>
-        <ReactPaginate
-          previousLabel={"<"}
-          nextLabel={">"}
-          breakLabel={<a href="">...</a>}
-          breakClassName={"break-me"}
-          pageCount={currentUsers.length / 10}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={currentUsers.length / 10}
-          onPageChange={onPageChange}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-        />
+        <div className="pagination-container">
+          <button
+            disabled={currentPage === 0}
+            onClick={() => setCurrentPage(0)}
+            className="first-page"
+          >
+            {`<<`}{" "}
+          </button>
+          <ReactPaginate
+            previousLabel={"<"}
+            nextLabel={">"}
+            breakLabel={<a href="">...</a>}
+            breakClassName={"break-me"}
+            pageCount={currentUsers.length / 10}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={currentUsers.length / 10}
+            onPageChange={onPageChange}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+            forcePage={currentPage}
+            nextClassName={`next ${
+              currentPage >= currentUsers.length / 10 - 1 ? "disabled" : ""
+            }`}
+          />
+          <button
+            disabled={currentPage === getLastPageNumber(currentUsers.length)}
+            className="last-page"
+            onClick={() =>
+              setCurrentPage(getLastPageNumber(currentUsers.length))
+            }
+          >
+            {`>>`}{" "}
+          </button>
+        </div>
       </div>
     </div>
   );
